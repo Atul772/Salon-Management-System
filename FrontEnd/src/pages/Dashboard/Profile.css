@@ -1,0 +1,70 @@
+/* Profile.css */
+#root{
+    height: 100vh;
+}
+.profile-container {
+    position: relative;
+    top: 63px;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.profile-container h1 {
+    text-align: center;
+}
+
+.profile-container input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.profile-container button {
+    width: 30%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.profile-container button:hover {
+    background-color: #218838;
+}
+
+.customer-details {
+    margin-top: 20px;
+}
+
+.customer-details ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.customer-details li {
+    margin: 20px 0px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+.feedback textarea {
+    resize: none; /* Prevent resizing */
+    width: 100%; /* Full width inputs */
+    padding: 10px; /* Padding for comfort */
+    border: 1px solid #ccc; /* Border for inputs */
+    border-radius: 4px; /* Rounded corners for inputs */
+    font-size: 16px; /* Larger font for readability */
+    /* Other properties... */
+}

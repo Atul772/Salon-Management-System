@@ -1,0 +1,98 @@
+/* Ensures the page takes the full height of the screen */
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.contactus-container {
+  min-height: 100vh; /* Ensures full viewport height */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically centers the content */
+  padding: 20px 20px; /* Adds padding for visibility and space */
+  background-color: #9b9797;;
+}
+.contact-feed{
+  display: flex;
+}
+
+.contactus-container h1 {
+  font-size: 2.5rem;
+  color: #333;
+  text-align: center;
+  margin: 43px 0px;
+}
+
+.contactus-container p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #000000;
+  margin: 5px;
+}
+
+.contact-info {
+  margin-bottom: 30px;
+}
+
+.contact-item {
+  margin-bottom: 15px;
+}
+
+.contact-item h3 {
+  font-size: 1.5rem;
+  color: #424447;
+  margin: 10px 0px ;
+}
+
+.contact-item p {
+  font-size: 1.1rem;
+  color: #000000;
+}
+
+.contact-form {
+  margin-top: 20px;
+  max-width: 600px; /* Limits the width of the form for better layout */
+  margin: 0 auto; /* Centers the form horizontally */
+}
+
+.contact-form h2 {
+  font-size: 1.8rem;
+  color: #434343;
+  margin: 0px 70px 20px
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  resize: none;
+}
+
+.contact-form button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin: 10px 0px;
+}
+
+.contact-form button:hover {
+  background-color: #218838;
+}

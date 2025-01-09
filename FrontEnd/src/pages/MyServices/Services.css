@@ -1,0 +1,63 @@
+/* Basic page setup and typography */
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px; /* Add padding for spacing */
+    text-align: center;
+  }
+  
+  .services-container h1 {
+    font-size: 2.5rem;
+    color: #ffffff;
+    margin-bottom: 40px;
+    margin-top: 45px;
+    background-color: #484545;
+    padding: 15px;
+  }
+  
+  /* Grid layout for service items */
+  .services-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px; /* Adds space between the items */
+  }
+  .services-grid .images{
+    width: 100%;
+    display: flex;
+  }
+  
+  .service-item {
+    margin: 0 10px;
+    background-color: #534e4e;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    flex: 1 1 calc(50% - 20px); /* Make each service item take 50% width, minus the gap */
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .service-item img {
+    width: 100%; /* Makes the image fill the container */
+    height: auto; /* Maintains the aspect ratio */
+    border-radius: 8px;
+    margin-bottom: 0px;
+  }
+  
+  .service-item h2 {
+    margin: 0px 0px;
+    font-size: 30px;
+    color: #efecec;
+  }
+  
+  .service-item:hover {
+    transform: translateY(-10px); /* Hover effect for visual feedback */
+  }
+  
+  /* Media queries to adjust layout for smaller screens */
+  @media (max-width: 768px) {
+    .service-item {
+      flex: 1 1 100%; /* Full width for small screens */
+    }
+  }  

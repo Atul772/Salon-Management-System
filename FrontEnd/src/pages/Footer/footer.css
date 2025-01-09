@@ -1,0 +1,41 @@
+.footer {
+    background-color: #ffffff;
+    padding: 8px 0px;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer .social-links {
+    margin-bottom: 5px;
+}
+
+.footer .social-links a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #555;
+    font-size: 20px;
+}
+
+.footer .social-links a:hover {
+    color: #0077b5; 
+}
+
+.footer h4 {
+    margin: 5px;
+    font-size: 20px;
+    color: #777;
+}
+.footer .fa-linkedin{
+    color: blue;
+    margin-right: 8px;
+}
+.footer .fa-telegram {
+    color: #0077b5; 
+    margin-right: 8px;
+}
+
+.footer .fa-youtube {
+    color: #FF0000; 
+    margin-right: 8px;
+}

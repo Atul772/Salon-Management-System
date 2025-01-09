@@ -1,0 +1,65 @@
+/* Body.css */
+#root{
+  height: 100vh;
+}
+.hero-section {
+  position: relative;
+  text-align: center;
+}
+
+.hero-image {
+  position: relative;
+  top: 10px;
+  width: 100vw;
+  height: auto;
+}
+
+.auth-section {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: larger;
+  width: 100%;
+}
+
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.service {
+  text-align: center;
+}
+
+.service img {
+  width: 100%;
+  height: auto;
+}
+
+.about-section,
+.contact-section {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.welcome{
+  padding-top: 100px;
+  margin-top: 100px;
+  font-size: 4rem;
+  width: 100%;
+  text-align: center;
+  color:rgb(255, 255, 255);
+  font-weight: 500;
+
+}
+.description{
+  margin: 10px 0px 0px 0px;
+  font-size: 4rem;
+  width: 100%;
+  text-align: center;
+  color:rgb(255, 255, 255);
+  font-style: italic;
+}
