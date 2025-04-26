@@ -1,6 +1,6 @@
 # Salon Management System
 
-The *Salon Management System* is a web-based application built using *React.js, **Node.js, **Express.js, and **SQL Server*. It allows users to book salon appointments online and enables employees to manage them efficiently.
+The *Salon Management System* is a web-based application built using *React.js, Node.js, Express.js, and SQL Server*. It allows users to book salon appointments online and enables employees to manage them efficiently.
 
 ## Screenshots
 
