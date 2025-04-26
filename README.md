@@ -62,7 +62,7 @@ The *Salon Management System* is a web-based application built using *React.js, 
 ## Setup Instructions
 
 1. Clone the repository:
-   git clone https://github.com/your-username/salon-management-system.git
+   git clone https://github.com/Atul772/salon-management-system.git
    
 ## Install all dependencies:
     npm install
