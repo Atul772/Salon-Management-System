@@ -6,24 +6,46 @@ import Services from './pages/MyServices/Services';
 import Aboutus from './pages/AboutUs/Aboutus';
 import Contactus from './pages/ContactUs/Contactus';
 import Dashboard from './pages/Dashboard/Dashboard';
-import PaymentPage from './pages/Payments/PaymentPage'; // Import PaymentPage
+import PaymentPage from './pages/Payments/PaymentPage';
 import Profile from './pages/Dashboard/Profile';
 import Employeedashboard from './pages/Dashboard/employeedashboard';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
     <>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Body />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/services" element={<Services />} />
         <Route path="/aboutus" element={<Aboutus />} />
         <Route path="/contactus" element={<Contactus />} />
-        <Route path="/dashboard" element={<Dashboard />} /> {/* Add Dashboard route */}
-        <Route path="/payment" element={<PaymentPage />} /> {/* Add PaymentPage route */}
-        <Route path="/profile"  element={<Profile />} /> {/* Add Profile route */}
-        <Route path='/employeedashboard' element={<Employeedashboard/>} />
+        
+        {/* Protected Customer Routes */}
+        <Route path="/dashboard" element={
+          <ProtectedRoute allowedRoles={['customer']}>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/payment" element={
+          <ProtectedRoute allowedRoles={['customer']}>
+            <PaymentPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+        
+        {/* Protected Employee Routes */}
+        <Route path='/employeedashboard' element={
+          <ProtectedRoute allowedRoles={['employee']}>
+            <Employeedashboard />
+          </ProtectedRoute>
+        } />
       </Routes>
     </>
   );

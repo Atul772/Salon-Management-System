@@ -3,44 +3,167 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 98%;
+  width: 100%;
+  height: 80px;
+  background-color: #222;
+  color: #fff;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: #c6c6c6;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   z-index: 1000;
 }
 
 /* Logo or title styling */
 .dashboard-header .logo h1 {
   font-size: 1.5rem;
-  color: #333;
+  color: #fff;
   margin: 0;
+  font-weight: 600;
 }
 
 /* Styling for profile section */
 .profile {
   display: flex;
   align-items: center;
-  position: relative; /* Ensures dropdown positions relative to this container */
+  position: relative;
+  gap: 12px;
+}
+
+/* User profile styling */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-icon {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+/* User menu styling */
+.user-profile-menu {
+  position: relative;
+}
+
+.user-menu-trigger {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.user-email {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 8px 15px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  color: #fff;
+}
+
+.user-email:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-button svg {
+  font-size: 16px;
+}
+
+/* Profile dropdown styling */
+.profile-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.user-info {
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #eee;
+}
+
+.user-info p {
+  margin: 0;
+  color: #333;
+  font-size: 0.95rem;
+  word-break: break-all;
+}
+
+.user-info .user-role {
+  margin-top: 4px;
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: #f5f5f5;
 }
 
 /* Logout button styling */
 .logout-btn {
-  background-color: #dc3545;
+  background-color: #e53e3e;
   color: white;
   border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  margin-right: 10px;
   border-radius: 4px;
-  transition: background-color 0.3s ease;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
 }
 
 .logout-btn:hover {
-  background-color: #c82333;
+  background-color: #c53030;
+  transform: translateY(-2px);
 }
 
 /* Profile icon styling */
@@ -48,12 +171,16 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 8px;
-  color: #007bff;
+  padding: 8px 12px;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  transition: all 0.3s ease;
 }
 
 .profile-icon:hover, .my-profile:hover {
-  color: #0056b3;
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
 }
 
 /* Profile dropdown for appointments */
@@ -62,17 +189,19 @@
   background-color: #fff;
   border: 1px solid #ddd;
   position: absolute;
-  top: 40px;
+  top: 100%;
   right: 0;
+  margin-top: 8px;
   padding: 10px;
-  width: 200px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  width: 220px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
   z-index: 10;
 }
 
 .profile-icon:hover .appointment-list {
   display: block;
+  animation: fadeIn 0.2s ease;
 }
 
 /* Profile dropdown for My Profile details */
@@ -81,29 +210,88 @@
   background-color: #fff;
   border: 1px solid #ddd;
   position: absolute;
-  top: 40px;
+  top: 100%;
   right: 0;
+  margin-top: 8px;
   padding: 10px;
-  width: 200px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  width: 220px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
   z-index: 10;
 }
 
 .my-profile:hover .profile-details {
   display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+/* Animation for dropdown appearance */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Additional styling for dropdown items */
 .appointment-list p,
 .profile-details p {
   margin: 0;
-  padding: 5px 0;
+  padding: 8px;
   font-size: 0.9rem;
   color: #333;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
 .appointment-list p:hover,
 .profile-details p:hover {
-  background-color: #f8f9fa;
+  background-color: #f5f5f5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    padding: 0.8rem;
+    height: auto;
+    width: 96%;
+  }
+  
+  .profile {
+    margin-top: 0.8rem;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .nav-links {
+    margin-top: 0.8rem;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .user-email {
+    display: none;
+  }
+}
+
+.navigation-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.home-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.home-btn:hover {
+  background-color: #0056b3;
 }

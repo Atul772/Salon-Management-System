@@ -1,37 +1,43 @@
 // Profile.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axi from '../../axionConfig';
 import './Profile.css';
 import DashboardHeader from './DashboardHeader';
+import { FaUser, FaPhone, FaMapMarkerAlt, FaCalendarAlt, FaClock, 
+         FaInfoCircle, FaTimes, FaRegStar, FaStar, FaPaperPlane } from 'react-icons/fa';
 
 const Profile = () => {
-    const [email, setEmail] = useState('');
     const [customerData, setCustomerData] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [rating, setRating] = useState('');
     const [comments, setComments] = useState('');
     const [selectedEmployee, setSelectedEmployee] = useState('');
-
+    
     const handleEmployeeChange = (e) => setSelectedEmployee(e.target.value);
 
-    const validateEmail = (email) => {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(String(email).toLowerCase());
-    };
-
-    const fetchCustomerData = async () => {
-        if (!validateEmail(email)) {
-            setError('Invalid email format.');
-            return;
+    // Get stored email on component mount
+    useEffect(() => {
+        const userEmail = localStorage.getItem('userEmail');
+        if (userEmail) {
+            fetchCustomerData(userEmail);
+        } else {
+            setLoading(false);
+            setError('User not logged in. Please log in again.');
         }
+    }, []);
 
+    const fetchCustomerData = async (email) => {
+        setLoading(true);
         try {
             const response = await axi.post('/api/getCustomer', { email });
             setCustomerData(response.data);
             setError('');
         } catch (err) {
-            setError('Customer not found.');
+            setError('Could not fetch customer data. Please try again later.');
             setCustomerData(null);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -53,17 +59,14 @@ const Profile = () => {
     };
 
     const submitFeedback = async () => {
-        if (!validateEmail(email) || !selectedEmployee) {
+        if (!customerData || !selectedEmployee) {
             alert('Please ensure all fields are filled correctly.');
             return;
         }
 
-        const rating = document.querySelector('input[type="number"]').value;
-        const comments = document.getElementById('comment').value;
-
         try {
             await axi.post('/api/submitFeedback', {
-                email,
+                email: localStorage.getItem('userEmail'),
                 rating: parseInt(rating, 10),
                 comments,
                 empName: selectedEmployee
@@ -78,81 +81,146 @@ const Profile = () => {
         }
     };
 
+    // Get first letter of name for avatar
+    const getInitial = (name) => {
+        return name ? name.charAt(0).toUpperCase() : '?';
+    };
+
+    // Star rating component
+    const StarRating = () => {
+        const stars = [1, 2, 3, 4, 5];
+        
+        return (
+            <div className="star-rating">
+                {stars.map((star) => (
+                    <span
+                        key={star}
+                        className={`star ${parseInt(rating) >= star ? 'active' : ''}`}
+                        onClick={() => setRating(star.toString())}
+                    >
+                        {parseInt(rating) >= star ? <FaStar /> : <FaRegStar />}
+                    </span>
+                ))}
+            </div>
+        );
+    };
+
     return (
         <div>
             <DashboardHeader />
             <div className="profile-container">
-                <h1>User Profile</h1>
-                <div className="user">
-                    <input
-                        type="email"
-                        placeholder="Enter your email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <button onClick={fetchCustomerData}>Proceed</button>
+                <div className="profile-header">
+                    <div className="profile-avatar">
+                        {customerData ? getInitial(customerData.name) : <FaUser />}
+                    </div>
+                    <h1>User Profile</h1>
+                    <p className="profile-subtitle">Manage your personal information and appointments</p>
                 </div>
-                {error && <p className="error">{error}</p>}
+                
+                {loading && (
+                    <div className="loading">
+                        <div className="loading-spinner"></div>
+                        Loading your profile...
+                    </div>
+                )}
+                
+                {error && <p className="error"><FaInfoCircle /> {error}</p>}
+                
                 {customerData && (
                     <div className="customer-details">
-                        <h2>Customer Details</h2>
-                        <p>Name: {customerData.name}</p>
-                        <p>Phone: {customerData.phone}</p>
-                        <p>Address: {customerData.address}</p>
-                        <h3>Appointments</h3>
-                        <ul>
-                            {customerData.appointments.length > 0 ? (
-                                customerData.appointments.map((app) => (
-                                    <li key={app.App_ID}>
-                                        <div style={{ margin: '0 45px', width: '35%' }}>Date: {app.Date.split('T')[0]}</div>
-                                        <div>Time: {app.Time}</div>
-                                        <div>Status: {app.Status}</div>
-                                        <button onClick={() => cancelAppointment(app.App_ID)}>Cancel</button>
-                                    </li>
-                                ))
-                            ) : (
-                                <p>You have no appointments.</p>
-                            )}
-                        </ul>
-                        <h3>Give Feedback!</h3>
-                        <div className="feedback">
-                            <div>
-                                Rating:
-                                <input
-                                    type="number"
-                                    min="1"
-                                    max="5"
-                                    step="1"
-                                    value={rating}
-                                    onChange={(e) => setRating(e.target.value)}
-                                />
+                        <div className="profile-section">
+                            <h2><FaUser /> Personal Information</h2>
+                            <div className="customer-info">
+                                <div className="info-card">
+                                    <div className="info-label">Full Name</div>
+                                    <div className="info-value">{customerData.name}</div>
+                                </div>
+                                
+                                <div className="info-card">
+                                    <div className="info-label">Email Address</div>
+                                    <div className="info-value">{localStorage.getItem('userEmail')}</div>
+                                </div>
+                                
+                                <div className="info-card">
+                                    <div className="info-label"><FaPhone /> Phone Number</div>
+                                    <div className="info-value">{customerData.phone}</div>
+                                </div>
+                                
+                                <div className="info-card">
+                                    <div className="info-label"><FaMapMarkerAlt /> Address</div>
+                                    <div className="info-value">{customerData.address}</div>
+                                </div>
                             </div>
-                            <div>
-                                Comments:
-                                <textarea
-                                    name="comment"
-                                    id="comment"
-                                    maxLength="300"
-                                    placeholder="Comment your Experience!"
-                                    value={comments}
-                                    onChange={(e) => setComments(e.target.value)}
-                                />
+                        </div>
+                        
+                        <div className="profile-section">
+                            <h2><FaCalendarAlt /> Your Appointments</h2>
+                            <div className="appointments-list">
+                                {customerData.appointments && customerData.appointments.length > 0 ? (
+                                    <ul>
+                                        {customerData.appointments.map((app) => (
+                                            <li key={app.App_ID} className="appointment-item">
+                                                <div className="appointment-info">
+                                                    <span><FaCalendarAlt /> <strong>Date:</strong> {app.Date.split('T')[0]}</span>
+                                                    <span><FaClock /> <strong>Time:</strong> {app.Time}</span>
+                                                    <span className={`status status-${app.Status.toLowerCase()}`}>
+                                                        <FaInfoCircle /> <strong>Status:</strong> {app.Status}
+                                                    </span>
+                                                </div>
+                                                {app.Status !== 'Completed' && (
+                                                    <button 
+                                                        className="cancel-btn" 
+                                                        onClick={() => cancelAppointment(app.App_ID)}
+                                                    >
+                                                        <FaTimes /> Cancel Appointment
+                                                    </button>
+                                                )}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <p className="no-appointments">You have no appointments scheduled. Visit the dashboard to book your first appointment!</p>
+                                )}
                             </div>
-                            <div className="employee-selection">
-                                <strong>Select Employee:</strong>
-                                <select
-                                    value={selectedEmployee}
-                                    onChange={handleEmployeeChange}
-                                    style={{ color: 'black', backgroundColor: 'white' }}
+                        </div>
+                        
+                        <div className="profile-section">
+                            <h2><FaStar /> Share Your Feedback</h2>
+                            <div className="feedback-form">
+                                <div className="form-group">
+                                    <label>How would you rate your experience?</label>
+                                    <StarRating />
+                                </div>
+                                
+                                <div className="form-group">
+                                    <label>Share your thoughts</label>
+                                    <textarea
+                                        placeholder="Tell us about your experience with our salon services..."
+                                        value={comments}
+                                        onChange={(e) => setComments(e.target.value)}
+                                    />
+                                </div>
+                                
+                                <div className="form-group">
+                                    <label>Select Employee</label>
+                                    <select
+                                        value={selectedEmployee}
+                                        onChange={handleEmployeeChange}
+                                    >
+                                        <option value="">Choose an employee</option>
+                                        <option value="Paul Mitchell">Paul Mitchell</option>
+                                        <option value="Guy Tang">Guy Tang</option>
+                                        <option value="Ted Gibson">Ted Gibson</option>
+                                    </select>
+                                </div>
+                                
+                                <button 
+                                    className="submit-btn" 
+                                    onClick={submitFeedback}
+                                    disabled={!rating || !comments || !selectedEmployee}
                                 >
-                                    <option value="">Select an Employee</option>
-                                    <option value="Paul Mitchell">Paul Mitchell</option>
-                                    <option value="Guy Tang">Guy Tang</option>
-                                    <option value="Ted Gibson">Ted Gibson</option>
-                                </select>
-                            </div>
-                            <div>
-                                <button onClick={submitFeedback}>Submit</button>
+                                    <FaPaperPlane /> Submit Feedback
+                                </button>
                             </div>
                         </div>
                     </div>
